@@ -2,6 +2,7 @@ package com.zeta;
 
 public class BankAccount {
     private int balance;
+    Loan loan;
 
     public BankAccount(int balance){
         this.balance=balance;
@@ -36,6 +37,23 @@ public class BankAccount {
         if(amount<0){
             throw new IllegalArgumentException("enter a positive value");
         }
+    }
+
+    public synchronized  boolean availLoan(int loanAmount, float interest, int tenure) {
+        validateAmount(loanAmount);
+        if (balance < 100000) {
+            return false;
+        }
+        if (loan != null) {
+            System.out.println("Loan already exists");
+            return false;
+        }
+        this.loan = new Loan(interest, tenure, loanAmount);
+        System.out.println("loan approved");
+        return true;
+    }
+    public synchronized boolean hasLoan() {
+        return loan != null;
     }
 
 }
