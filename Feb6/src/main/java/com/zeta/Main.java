@@ -55,6 +55,11 @@ public class Main {
                             System.out.println("Loan already exists");
                             break;
                         }
+                        int money=account.getBalance();
+                        if(money<1000000){
+                            System.out.println("Insufficient balance");
+                            break;
+                        }
                         System.out.println("Enter loan amount:");
                         int loanAmount = sc.nextInt();
                         System.out.println("Enter interest rate:");
