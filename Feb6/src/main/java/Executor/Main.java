@@ -11,7 +11,8 @@ public class Main {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         ExecutorService executorService= Executors.newFixedThreadPool(2);
         BankAccount account=new BankAccount(1000);
-        Future future=executorService.submit(new DepositTask(account,1000));
+//        Future future=executorService.submit(new DepositTask(account,1000));
+        Future future=executorService.submit(()->account.deposit(1000));
         Future future1=executorService.submit(new DepositTask(account,1000));
         System.out.println(future.get());
         System.out.println(future1.get());
