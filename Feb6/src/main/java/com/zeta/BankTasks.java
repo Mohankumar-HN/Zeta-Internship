@@ -13,11 +13,11 @@ class Withdrawtask implements Runnable {
 
     @Override
     public void run() {
-//            account.validateAmount(amount);
-        Validator validator = (a) -> {
-            if (a < 0) {
-                throw new IllegalArgumentException("enter a positive value");
-            }};
+            account.validateAmount(amount);
+//        Validator validator = (a) -> {
+//            if (a < 0) {
+//                throw new IllegalArgumentException("enter a positive value");
+//            }};
             String thread = Thread.currentThread().getName();
             boolean success = account.withdraw(amount);
             if (success) {
@@ -40,12 +40,12 @@ class Withdrawtask implements Runnable {
 
         @Override
         public void run() {
-//        account.validateAmount(amount);
-            Validator validator = (a) -> {
-                if (a < 0) {
-                    throw new IllegalArgumentException("enter a positive value");
-                }
-            };
+        account.validateAmount(amount);
+//            Validator validator = (a) -> {
+//                if (a < 0) {
+//                    throw new IllegalArgumentException("enter a positive value");
+//                }
+//            };
             String thread = Thread.currentThread().getName();
             account.deposit(amount);
             System.out.println(thread + "Depositing money...");

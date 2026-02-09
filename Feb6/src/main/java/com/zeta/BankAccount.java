@@ -35,18 +35,18 @@ public class BankAccount {
         balance+=amount;
     }
 
-//    void validateAmount(int amount){
-//        if(amount<0){
-//            throw new IllegalArgumentException("enter a positive value");
-//        }
-//    }
+    void validateAmount(int amount){
+        if(amount<0){
+            throw new IllegalArgumentException("enter a positive value");
+        }
+    }
 
     public synchronized  boolean availLoan(int loanAmount, float interest, int tenure) {
-//        validateAmount(loanAmount);
-        Validator validator = (a) -> {
-            if (a < 0) {
-                throw new IllegalArgumentException("enter a positive value");
-            }};
+        validateAmount(loanAmount);
+//        Validator validator = (a) -> {
+//            if (a < 0) {
+//                throw new IllegalArgumentException("enter a positive value");
+//            }};
         if (loan != null) {
             System.out.println("Loan already exists");
             return false;

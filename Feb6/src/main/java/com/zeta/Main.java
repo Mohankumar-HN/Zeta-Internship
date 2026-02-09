@@ -71,7 +71,15 @@ public class Main {
             System.out.println("6  Exit");
             System.out.print("Enter your choice: ");
 
-            int choice=sc.nextInt();
+            int choice;
+
+            try {
+                choice = sc.nextInt();
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Please enter a valid number (1–6).");
+                sc.nextLine();
+                continue;
+            }
             try {
                 switch (choice) {
                     case 1:
@@ -81,26 +89,26 @@ public class Main {
                     case 2:
                         System.out.println("Enter amount to deposit");
                         int amount = sc.nextInt();
-//                        executor.execute(new DepositTask(account, amount));
-                        executor.execute(()->account.deposit(amount));
+                        executor.execute(new DepositTask(account, amount));
+//                        executor.execute(()->account.deposit(amount));
                         break;
 
                     case 3:
                         System.out.println("Enter amount to withdraw:");
                         int wamount = sc.nextInt();
-//                        executor.execute(new Withdrawtask(account, wamount));
-                        executor.execute(()->account.withdraw(wamount));
+                        executor.execute(new Withdrawtask(account, wamount));
+//                        executor.execute(()->account.withdraw(wamount));
                         break;
 
                     case 4:
                         System.out.println("Simulating two parallel withdrawals of ₹" + (initialbalance / 2));
 
-//                        executor.execute(new Withdrawtask(account, initialbalance / 2));
-//                        executor.execute(new Withdrawtask(account, initialbalance / 2));
-                        int finalInitialbalance = initialbalance;
-                        executor.execute(()->account.withdraw(finalInitialbalance /2));
-                        int finalInitialbalance1 = initialbalance;
-                        executor.execute(()->account.withdraw(finalInitialbalance1 /2));
+                        executor.execute(new Withdrawtask(account, initialbalance / 2));
+                        executor.execute(new Withdrawtask(account, initialbalance / 2));
+//                        int finalInitialbalance = initialbalance;
+//                        executor.execute(()->account.withdraw(finalInitialbalance /2));
+//                        int finalInitialbalance1 = initialbalance;
+//                        executor.execute(()->account.withdraw(finalInitialbalance1 /2));
 
                         break;
 
