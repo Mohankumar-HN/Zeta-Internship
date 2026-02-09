@@ -2,42 +2,7 @@ package com.zeta;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.RecursiveTask;
-import java.util.concurrent.ForkJoinPool;
 
-
-//class SumTask extends RecursiveTask<Integer> {
-//    private static final int Threshold=3;
-//    private BankAccount[] account;
-//    private int start,end;
-//
-//    SumTask(BankAccount[] account,int start,int end){
-//        this.account =account;
-//        this.start=start;
-//        this.end=end;
-//    }
-//
-//
-//    @Override
-//    protected Integer compute() {
-//        if(end-start<=Threshold){
-//            int sum=0;
-//            for(int i=start;i<end;i++){
-//                sum+= account[i].getBalance();
-//            }
-//            return sum;
-//        }else{
-//            int mid = (start + end) / 2;
-//            SumTask left = new SumTask(account, start, mid);
-//            SumTask right = new SumTask(account, mid, end);
-//            left.fork();
-//            int Rightresult=right.compute();
-//            int leftresult=left.join();
-//            return leftresult+Rightresult;
-//        }
-//
-//    }
-//}
 
 public class Main {
     public static void main(String[] args){
@@ -49,14 +14,7 @@ public class Main {
             initialbalance=sc.nextInt();
         }
 
-//        BankAccount[] account=new BankAccount[20];
-//        for(int i=0;i<20;i++){
-//            int initialbalance=(int)(Math.random()*1000);
-//            account[i]= new BankAccount(initialbalance);
-//        }
-//        ForkJoinPool pool=new ForkJoinPool();
-//        int result=pool.invoke(new SumTask(account,0, account.length));
-//        System.out.println("sum "+result);
+
 
 
         ExecutorService executor= Executors.newFixedThreadPool(3);
@@ -68,7 +26,9 @@ public class Main {
             System.out.println("3. Withdraw Money");
             System.out.println("4. Simulate Parallel Withdrawals");
             System.out.println("5. Get loan");
-            System.out.println("6  Exit");
+            System.out.println("6. Check loan status");
+            System.out.println("7. Calculate EMI");
+            System.out.println("8. Exit");
             System.out.print("Enter your choice: ");
 
             int choice;
@@ -76,7 +36,7 @@ public class Main {
             try {
                 choice = sc.nextInt();
             } catch (java.util.InputMismatchException e) {
-                System.out.println("Please enter a valid number (1–6).");
+                System.out.println("Please enter a valid number 1–6.");
                 sc.nextLine();
                 continue;
             }
@@ -101,13 +61,11 @@ public class Main {
                         break;
 
                     case 4:
-                        System.out.println("Simulating two parallel withdrawals of ₹" + (initialbalance / 2));
+                        System.out.println("Simulating two parallel withdrawals of ₹" + (account.getBalance() / 2));
 
-                        executor.execute(new Withdrawtask(account, initialbalance / 2));
-                        executor.execute(new Withdrawtask(account, initialbalance / 2));
-//                        int finalInitialbalance = initialbalance;
+                        executor.execute(new Withdrawtask(account, account.getBalance() / 2));
+                        executor.execute(new Withdrawtask(account, account.getBalance()/ 2));
 //                        executor.execute(()->account.withdraw(finalInitialbalance /2));
-//                        int finalInitialbalance1 = initialbalance;
 //                        executor.execute(()->account.withdraw(finalInitialbalance1 /2));
 
                         break;
@@ -117,20 +75,31 @@ public class Main {
                             System.out.println("Loan already exists");
                             break;
                         }
-                        int money=account.getBalance();
-                        if(money<100000){
-                            System.out.println("Insufficient balance");
-                            break;
-                        }
+
                         System.out.println("Enter loan amount:");
                         int loanAmount = sc.nextInt();
-                        System.out.println("Enter interest rate:");
-                        float interest = sc.nextFloat();
-                        System.out.println("Enter tenure :");
+
+                        System.out.println("Enter tenure in months :");
                         int tenure = sc.nextInt();
-                        account.availLoan(loanAmount, interest, tenure);
+                        account.availLoan(loanAmount,  tenure);
                         break;
+
                     case 6:
+                        System.out.println("checking loan status");
+                        account.checkLoanStatus();
+                        break;
+
+                    case 7:
+                        System.out.println("Enter loan amount:");
+                        int emiAmount = sc.nextInt();
+
+                        System.out.println("Enter tenure in months :");
+                        int emiTenure = sc.nextInt();
+                        float emi= (float) account.calculateMonthlyEMI(emiTenure,emiAmount);
+                        System.out.println("EMI per month: "+emi);
+                        break;
+
+                    case 8:
                         System.out.println("Shutting down");
                         executor.shutdown();
                         sc.close();
@@ -140,7 +109,8 @@ public class Main {
                     default:
                         System.out.println("Invalid choice! Try again.");
                 }
-            }catch(IllegalArgumentException e){
+            }catch(IllegalArgumentException illegalArgumentException){
+                System.out.println(illegalArgumentException.getMessage());
 
             }
         }

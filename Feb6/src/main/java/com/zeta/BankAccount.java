@@ -1,10 +1,10 @@
 package com.zeta;
 
-import com.zeta.exception.Validator;
-
 public class BankAccount {
     private int balance;
     Loan loan;
+
+    private static final float monthlyInterest=3.0f;
 
     public BankAccount(int balance){
         this.balance=balance;
@@ -36,12 +36,12 @@ public class BankAccount {
     }
 
     void validateAmount(int amount){
-        if(amount<0){
+        if (amount <= 0) {
             throw new IllegalArgumentException("enter a positive value");
         }
     }
 
-    public synchronized  boolean availLoan(int loanAmount, float interest, int tenure) {
+    public synchronized  boolean availLoan(int loanAmount,  int tenure) {
         validateAmount(loanAmount);
 //        Validator validator = (a) -> {
 //            if (a < 0) {
@@ -51,12 +51,39 @@ public class BankAccount {
             System.out.println("Loan already exists");
             return false;
         }
-        this.loan = new Loan(interest, tenure, loanAmount);
+        if (balance < 1000000) {
+            System.out.println("Balance should be at least 1 lakh to avail loan");
+            return false;
+        }
+        this.loan = new Loan( monthlyInterest,loanAmount, tenure);
         System.out.println("loan approved");
         return true;
     }
+
     public synchronized boolean hasLoan() {
         return loan != null;
     }
 
+    public synchronized void checkLoanStatus(){
+        if(loan==null){
+            System.out.println("No active loan");
+            return;
+        }
+        System.out.println("Loan Details");
+        System.out.println("Loan taken: "+loan.amount);
+        System.out.println("Interest rate: "+loan.interest);
+        System.out.println("Tenure: "+loan.tenure);
+    }
+
+
+    public double calculateMonthlyEMI(int tenure,int amount) {
+
+        double r = monthlyInterest / 100.0;
+        int n = tenure;
+
+        double emi = amount * r * Math.pow(1 + r, n)
+                / (Math.pow(1 + r, n) - 1);
+
+        return emi;
+    }
 }
