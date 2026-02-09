@@ -41,9 +41,6 @@ public class BankAccount {
 
     public synchronized  boolean availLoan(int loanAmount, float interest, int tenure) {
         validateAmount(loanAmount);
-        if (balance < 100000) {
-            return false;
-        }
         if (loan != null) {
             System.out.println("Loan already exists");
             return false;
