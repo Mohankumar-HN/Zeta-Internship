@@ -12,7 +12,7 @@ public class Lambafunction {
 //        System.out.println(predicate.test(10));
 //          Calculator calc=(x,y)->x+y;
 //          System.out.println(calc.add(2,3));
-        int[] arr={1,2,3,4,5};
+        int[] arr={1,2,3,4,5,6};
         int value=2;
 
 
@@ -49,7 +49,15 @@ public class Lambafunction {
 
         //assignment -4
 
-
+        Arraythirdelement arraythirdelement=(ar)->{
+            int sum=0;
+            for(int i=2;i<ar.length;i+=3){
+                sum+=ar[i];
+            }
+            return sum;
+        };
+        int result3=arraythirdelement.increasethirdelement(arr);
+        System.out.println(result3);
 
     }
 }
