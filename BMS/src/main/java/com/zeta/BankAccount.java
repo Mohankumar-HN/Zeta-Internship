@@ -2,16 +2,18 @@ package com.zeta;
 
 public class BankAccount {
     private int balance;
-    private int number;
+    private int accountID;
     Loan loan;
 
     private static final float monthlyInterest=3.0f;
 
-    public BankAccount(int balance,int number){
+    public BankAccount(int balance,int accountID){
 
         this.balance=balance;
-        this.number=number;
+        this.accountID=accountID;
     }
+
+
 
     public synchronized int getBalance(){
         return balance;
@@ -70,7 +72,7 @@ public class BankAccount {
         return loan != null;
     }
 
-    
+
     public synchronized void checkLoanStatus(){
         if(loan==null){
             System.out.println("No active loan");
@@ -82,15 +84,7 @@ public class BankAccount {
         System.out.println("Tenure: "+loan.tenure);
     }
 
-
-    public double calculateMonthlyEMI(int tenure,int amount) {
-
-        double r = monthlyInterest / 100.0;
-        int n = tenure;
-
-        double emi = amount * r * Math.pow(1 + r, n)
-                / (Math.pow(1 + r, n) - 1);
-
-        return emi;
+    public int getAccountId() {
+        return accountID;
     }
 }
