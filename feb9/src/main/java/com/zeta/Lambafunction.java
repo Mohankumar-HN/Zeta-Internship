@@ -8,17 +8,22 @@ public class Lambafunction {
     static Consumer<String> consumerLambda=message-> System.out.println(message);
 
     public static void main(String[] args){
-//        consumerLambda.accept("Hi");
-//        System.out.println(predicate.test(10));
-//          Calculator calc=(x,y)->x+y;
-//          System.out.println(calc.add(2,3));
+        //assignment-1
+
+        System.out.println("Assigment 1 :printing message,using predicate(returns boolean),add");
+
+        consumerLambda.accept("Hi");
+        System.out.println(predicate.test(10));
+        Calculator calc = (x, y) -> x + y;
+        System.out.println(calc.add(2, 3));
+
         int[] arr={1,2,3,4,5,6};
         int value=2;
 
 
-//        assignment-2
+  //        assignment-2
 
-
+        System.out.println("assignment 2: Increasing the value of array members by 2");
         ArrayIncrement arrayIncrement=ar->{
             for(int i=0;i<ar.length;i++)
             {
@@ -35,7 +40,7 @@ public class Lambafunction {
 
 //        assignment-3
 
-
+        System.out.println("assignment 3: Increasing the value of array members by a specified value");
         Arraypass arraypass=(ar,val)->{
             for(int i=0;i<ar.length;i++){
                 ar[i]+=val;
@@ -49,6 +54,8 @@ public class Lambafunction {
 
         //assignment -4
 
+
+        System.out.println("assignment 4: Adding each 3rd elements of array ");
         Arraythirdelement arraythirdelement=(ar)->{
             int sum=0;
             for(int i=2;i<ar.length;i+=3){

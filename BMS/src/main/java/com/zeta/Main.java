@@ -13,12 +13,12 @@ public class Main {
             System.out.println("enter valid balance");
             initialbalance=sc.nextInt();
         }
-
-
-
+        System.out.println("Enter Account number");
+        int num=sc.nextInt();
+        
 
         ExecutorService executor= Executors.newFixedThreadPool(3);
-        BankAccount account=new BankAccount(initialbalance);
+        BankAccount account=new BankAccount(initialbalance,num);
         while(true){
             System.out.println("\nMULTITHREADED BANKING SYSTEM");
             System.out.println("1. Check Balance");

@@ -33,6 +33,7 @@ public class ProducerConsumerDemo {
                 }
             } catch (Exception e) {}
         });
+
         Thread consumer = new Thread(() -> {
             try {
                 for (int i = 1; i <= 5; i++) {

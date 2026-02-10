@@ -2,12 +2,15 @@ package com.zeta;
 
 public class BankAccount {
     private int balance;
+    private int number;
     Loan loan;
 
     private static final float monthlyInterest=3.0f;
 
-    public BankAccount(int balance){
+    public BankAccount(int balance,int number){
+
         this.balance=balance;
+        this.number=number;
     }
 
     public synchronized int getBalance(){
@@ -27,6 +30,7 @@ public class BankAccount {
         return false;
     }
 
+
     public synchronized void deposit(int amount){
         System.out.println("Depositing amount...");
         try{
@@ -40,6 +44,7 @@ public class BankAccount {
             throw new IllegalArgumentException("enter a positive value");
         }
     }
+
 
     public synchronized  boolean availLoan(int loanAmount,  int tenure) {
         validateAmount(loanAmount);
@@ -61,9 +66,11 @@ public class BankAccount {
     }
 
     public synchronized boolean hasLoan() {
+
         return loan != null;
     }
 
+    
     public synchronized void checkLoanStatus(){
         if(loan==null){
             System.out.println("No active loan");

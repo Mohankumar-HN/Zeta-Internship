@@ -10,8 +10,4 @@ public class Loan {
         this.amount = amount;
         this.tenure = tenure;
     }
-
-
-
-
 }

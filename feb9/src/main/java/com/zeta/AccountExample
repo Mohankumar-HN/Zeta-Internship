@@ -1,0 +1,50 @@
+import java.util.concurrent.RecursiveTask;
+import java.util.concurrent.ForkJoinPool;
+
+
+class SumTask extends RecursiveTask<Integer> {
+    private static final int Threshold=3;
+    private BankAccount[] account;
+    private int start,end;
+
+   SumTask(BankAccount[] account,int start,int end){
+        this.account =account;
+        this.start=start;
+        this.end=end;
+    }
+
+
+    @Override
+    protected Integer compute() {
+        if(end-start<=Threshold){
+            int sum=0;
+            for(int i=start;i<end;i++){
+                sum+= account[i].getBalance();
+            }
+            return sum;
+        }else{
+            int mid = (start + end) / 2;
+            SumTask left = new SumTask(account, start, mid);
+            SumTask right = new SumTask(account, mid, end);
+            left.fork();
+            int Rightresult=right.compute();
+            int leftresult=left.join();
+            return leftresult+Rightresult;
+        }
+
+    }
+}
+
+
+
+public class Main {
+    public static void main(String[] args){
+BankAccount[] account=new BankAccount[20];
+        for(int i=0;i<20;i++){
+            int initialbalance=(int)(Math.random()*1000);
+            account[i]= new BankAccount(initialbalance);
+        }
+        ForkJoinPool pool=new ForkJoinPool();
+        int result=pool.invoke(new SumTask(account,0, account.length));
+        System.out.println("sum "+result);
+ }

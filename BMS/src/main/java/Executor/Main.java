@@ -10,7 +10,7 @@ import java.util.concurrent.Future;
 public class Main {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         ExecutorService executorService= Executors.newFixedThreadPool(2);
-        BankAccount account=new BankAccount(1000);
+        BankAccount account=new BankAccount(1000,222);
 //        Future future=executorService.submit(new DepositTask(account,1000));
         Future future=executorService.submit(()->account.deposit(1000));
         Future future1=executorService.submit(new DepositTask(account,1000));
