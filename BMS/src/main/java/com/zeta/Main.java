@@ -1,21 +1,18 @@
 package com.zeta;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-
-
+import com.zeta.transcation.Transcation;
 
 
 public class Main {
     public static void main(String[] args){
-        Scanner sc=new Scanner(System.in);
+        Scanner scanner=new Scanner(System.in);
 
-        
-        List<BankAccount> accounts=new ArrayList<>();
 
+        Map<Integer, BankAccount> accounts = new HashMap<>();
+        Map<Integer,List<Transcation>> transcationMap=new HashMap<>();
 
         ExecutorService executor= Executors.newFixedThreadPool(3);
 
@@ -30,90 +27,109 @@ public class Main {
             System.out.println("6. Get loan");
             System.out.println("7. Check loan status");
             System.out.println("8. Show Accounts");
-            System.out.println("9. Exit");
+            System.out.println("9. Show Transcations");
+            System.out.println("10. Exit");
             System.out.print("Enter your choice: ");
 
             int choice;
 
             try {
-                choice = sc.nextInt();
+                choice = scanner.nextInt();
             } catch (java.util.InputMismatchException e) {
-                System.out.println("Please enter a valid number 1–6.");
-                sc.nextLine();
+                System.out.println("Please enter a valid number");
+                scanner.nextLine();
                 continue;
             }
             try {
                 switch (choice) {
                     case 1:
                         System.out.println("Enter account ID:");
-                        int accountID=sc.nextInt();
+                        int accountID=scanner.nextInt();
                         System.out.println("Enter initial balance :");
-                        int initialbalance=sc.nextInt();
+                        int initialbalance=scanner.nextInt();
                         while(initialbalance<0){
                             System.out.println("enter valid balance");
-                            initialbalance=sc.nextInt();
+                            initialbalance=scanner.nextInt();
                         }
                         BankAccount account=new BankAccount(initialbalance,accountID);
-                        accounts.add(account);
+                        accounts.put(accountID, account);
+                        transcationMap.put(accountID,Collections.synchronizedList(new ArrayList<>()));
                         break;
 
                     case 2:
                         System.out.println("Enter account ID");
-                        int id=sc.nextInt();
-                        BankAccount acc=findAccount(accounts,id);
+                        int id=scanner.nextInt();
+                        BankAccount acc = accounts.get(id);
                         if(acc==null){
                             System.out.println("Account not found");
+                            break;
                         }
                         System.out.println("Balance: "+acc.getBalance());
                         break;
 
                     case 3:
                         System.out.println("Enter account ID");
-                        int id3=sc.nextInt();
-                        BankAccount acc3=findAccount(accounts,id3);
+                        int id3=scanner.nextInt();
+                        BankAccount acc3 = accounts.get(id3);
                         if(acc3==null){
                             System.out.println("Account not found");
+                            break;
                         }
                         System.out.println("Enter amount to deposit");
-                        int amount = sc.nextInt();
-                        executor.execute(new DepositTask(acc3, amount));
-//                        executor.execute(()->account.deposit(amount));
+                        int amount = scanner.nextInt();
+                        executor.execute(()->{
+                            try {
+                                acc3.deposit(amount);
+                                transcationMap.get(id3).add(new Transcation(id3, "CREDIT", amount));
+                            }catch(Exception exception){
+                                System.out.println(exception.getMessage());
+                            }
+                        });
                         break;
 
                     case 4:
                         System.out.println("Enter account ID");
-                        int id4=sc.nextInt();
-                        BankAccount acc4=findAccount(accounts,id4);
+                        int id4=scanner.nextInt();
+                        BankAccount acc4 = accounts.get(id4);
                         if(acc4==null){
                             System.out.println("Account not found");
+                            break;
                         }
                         System.out.println("Enter amount to withdraw:");
-                        int wamount = sc.nextInt();
-                        executor.execute(new Withdrawtask(acc4, wamount));
-//                        executor.execute(()->account.withdraw(wamount));
+                        int wamount = scanner.nextInt();
+                        executor.execute(()->{
+                            try {
+                                acc4.withdraw(wamount);
+                                transcationMap.get(id4).add(new Transcation(id4, "DEBIT", wamount));
+                            }catch(Exception exception){
+                                System.out.println(exception.getMessage());
+                            }
+                        });
                         break;
 
                     case 5:
                         System.out.println("Enter account ID");
-                        int id5=sc.nextInt();
-                        BankAccount acc5=findAccount(accounts,id5);
+                        int id5=scanner.nextInt();
+                        BankAccount acc5 = accounts.get(id5);
                         if(acc5==null){
                             System.out.println("Account not found");
+                            break;
                         }
                         System.out.println("Simulating two parallel withdrawals of ₹" + (acc5.getBalance() / 2));
 
-                        executor.execute(new Withdrawtask(accounts.get(0), acc5.getBalance() / 2));
-                        executor.execute(new Withdrawtask(accounts.get(0), acc5.getBalance()/ 2));
+                        executor.execute(new Withdrawtask(accounts.get(id5), acc5.getBalance() / 2));
+                        executor.execute(new Withdrawtask(accounts.get(id5), acc5.getBalance()/ 2));
 //                        executor.execute(()->account.withdraw(finalInitialbalance /2));
 //                        executor.execute(()->account.withdraw(finalInitialbalance1 /2));
                         break;
 
                     case 6:
                         System.out.println("Enter account ID");
-                        int id6=sc.nextInt();
-                        BankAccount acc6=findAccount(accounts,id6);
+                        int id6=scanner.nextInt();
+                        BankAccount acc6 = accounts.get(id6);
                         if(acc6==null){
                             System.out.println("Account not found");
+                            break;
                         }
                         if (acc6.hasLoan()) {
                             System.out.println("Loan already exists");
@@ -121,19 +137,20 @@ public class Main {
                         }
 
                         System.out.println("Enter loan amount:");
-                        int loanAmount = sc.nextInt();
+                        int loanAmount = scanner.nextInt();
 
                         System.out.println("Enter tenure in months :");
-                        int tenure = sc.nextInt();
+                        int tenure = scanner.nextInt();
                         acc6.availLoan(loanAmount,  tenure);
                         break;
 
                     case 7:
                         System.out.println("Enter account ID");
-                        int id7=sc.nextInt();
-                        BankAccount acc7=findAccount(accounts,id7);
+                        int id7=scanner.nextInt();
+                        BankAccount acc7 = accounts.get(id7);
                         if(acc7==null){
                             System.out.println("Account not found");
+                            break;
                         }
                         System.out.println("checking loan status");
                         acc7.checkLoanStatus();
@@ -142,16 +159,32 @@ public class Main {
 
                     case 8:
                         System.out.println("The Bank accounts are:");
-                        for (BankAccount a:accounts){
-                            System.out.println(a.getAccountId());
-                        }
+                        accounts.forEach((key, value) -> System.out.println("Account ID :" + key + "  Balance: " + value.getBalance()));
                         break;
 
 
                     case 9:
+                        System.out.println("Enter account ID:");
+                        int tid = scanner.nextInt();
+                        List<Transcation> list = transcationMap.get(tid);
+                        if (list == null) {
+                            System.out.println("Account not found");
+                            break;
+                        }
+                        if (list.isEmpty()) {
+                            System.out.println("No transactions found");
+                            break;
+                        }
+                        for (Transcation t : list) {
+                            System.out.println(t);
+                        }
+                        break;
+
+
+                    case 10:
                         System.out.println("Shutting down");
                         executor.shutdown();
-                        sc.close();
+                        scanner.close();
                         System.exit(0);
                         break;
 
@@ -160,19 +193,13 @@ public class Main {
                 }
             }catch(IllegalArgumentException illegalArgumentException){
                 System.out.println(illegalArgumentException.getMessage());
-
+            }catch (java.util.InputMismatchException e) {
+                System.out.println("Please enter numbers only.");
+                scanner.nextLine();
             }
         }
 
     }
-    private static BankAccount findAccount(List<BankAccount> accounts, int id) {
 
-        for (BankAccount a : accounts) {
-            if (a.getAccountId() == id) {
-                return a;
-            }
-        }
-        return null;
-    }
 
 }

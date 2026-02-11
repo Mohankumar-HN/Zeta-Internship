@@ -39,6 +39,7 @@ public class BankAccount {
             Thread.sleep(500);;
         }catch(InterruptedException e){}
         balance+=amount;
+        System.out.println("Deposited money "+amount+ "Remaining Balance:"+getBalance());
     }
 
     void validateAmount(int amount){
