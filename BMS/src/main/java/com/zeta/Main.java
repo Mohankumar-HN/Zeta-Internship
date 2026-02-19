@@ -61,7 +61,7 @@ public class Main {
                         int id=scanner.nextInt();
                         BankAccount acc = accounts.get(id);
                         if(acc==null){
-                            System.out.println("Account not found");
+                            System.out.println("Account not found\n Create your account now in our Bank");
                             break;
                         }
                         System.out.println("Balance: "+acc.getBalance());
@@ -72,7 +72,7 @@ public class Main {
                         int id3=scanner.nextInt();
                         BankAccount acc3 = accounts.get(id3);
                         if(acc3==null){
-                            System.out.println("Account not found");
+                            System.out.println("Account not found\n Create your account now in our Bank");
                             break;
                         }
                         System.out.println("Enter amount to deposit");
@@ -92,7 +92,7 @@ public class Main {
                         int id4=scanner.nextInt();
                         BankAccount acc4 = accounts.get(id4);
                         if(acc4==null){
-                            System.out.println("Account not found");
+                            System.out.println("Account not found\n Create your account now in our Bank");
                             break;
                         }
                         System.out.println("Enter amount to withdraw:");
@@ -112,7 +112,7 @@ public class Main {
                         int id5=scanner.nextInt();
                         BankAccount acc5 = accounts.get(id5);
                         if(acc5==null){
-                            System.out.println("Account not found");
+                            System.out.println("Account not found\n Create your account now in our Bank");
                             break;
                         }
                         System.out.println("Simulating two parallel withdrawals of ₹" + (acc5.getBalance() / 2));
@@ -128,7 +128,7 @@ public class Main {
                         int id6=scanner.nextInt();
                         BankAccount acc6 = accounts.get(id6);
                         if(acc6==null){
-                            System.out.println("Account not found");
+                            System.out.println("Account not found\n Create your account now in our Bank");
                             break;
                         }
                         if (acc6.hasLoan()) {
@@ -149,7 +149,7 @@ public class Main {
                         int id7=scanner.nextInt();
                         BankAccount acc7 = accounts.get(id7);
                         if(acc7==null){
-                            System.out.println("Account not found");
+                            System.out.println("Account not found\n Create your account now in our Bank");
                             break;
                         }
                         System.out.println("checking loan status");
@@ -168,7 +168,7 @@ public class Main {
                         int tid = scanner.nextInt();
                         List<Transcation> list = transcationMap.get(tid);
                         if (list == null) {
-                            System.out.println("Account not found");
+                            System.out.println("Account not found\n Create your account now in our Bank");
                             break;
                         }
                         if (list.isEmpty()) {
