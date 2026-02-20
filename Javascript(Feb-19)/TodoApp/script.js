@@ -39,7 +39,7 @@ function editTask(id) {
     const newText = prompt("Edit task:");
     if (!newText) return;
 
-    const task = tasks.find(t => t.id === id);
+    const task = tasks.find(task => task.id === id);
     task.text = newText;
 
     saveTasks();
@@ -53,7 +53,7 @@ function deleteTask(id) {
 }
 
 function toggleComplete(id) {
-    const task = tasks.find(t => t.id === id);
+    const task = tasks.find(task => task.id === id);
     task.completed = !task.completed;
     saveTasks();
     renderTasks();
@@ -71,7 +71,7 @@ function renderTasks() {
     let filteredTasks = tasks;
 
     if (currentFilter === "completed") {
-        filteredTasks = tasks.filter(t => t.completed);
+        filteredTasks = tasks.filter(task => task.completed);
     } else if (currentFilter === "pending") {
         filteredTasks = tasks.filter(t => !t.completed);
     }
@@ -89,7 +89,7 @@ function renderTasks() {
         li.innerHTML = `
             ${task.text}
             <small>Due: ${task.dueDate || "No date"}</small>
-            <button onclick="toggleComplete(${task.id})">✔</button>
+            <button onclick="toggleComplete(${task.id})">&#10004;</button>
             <button onclick="editTask(${task.id})">Edit</button>
             <button onclick="deleteTask(${task.id})">Delete</button>
         `;
