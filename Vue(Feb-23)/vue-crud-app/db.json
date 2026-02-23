@@ -1,14 +1,22 @@
 {
   "users": [
     {
-      "id": "2",
-      "name": "Neha",
-      "email": "neha@test.com"
+      "id": "a3fa",
+      "name": "billy",
+      "email": "billy@gmail.com",
+      "gender": "Male"
     },
     {
-      "id": "6152",
-      "name": "mohan",
-      "email": "mohan@gmail.coom"
+      "id": "5ef9",
+      "name": "bob",
+      "email": "bob@gmail.com",
+      "gender": "Male"
+    },
+    {
+      "id": "ffe7",
+      "name": "alice",
+      "email": "alice @gmail.com",
+      "gender": "Female"
     }
   ]
 }
