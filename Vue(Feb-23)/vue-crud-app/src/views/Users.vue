@@ -8,13 +8,16 @@
       <button @click="removeUser(user.id)">Delete</button>
     </li>
   </ul> -->
-    <table>
-        <tr>
+    <table border="1">
+        <thead>
+            <tr>
             <th>Name</th>
             <th>Email</th>
             <th>gender</th>
             <th>Skills</th>
         </tr>
+        </thead>
+        
         <tbody>
             <tr v-for="user in users" :key="user.id">
 
@@ -24,7 +27,7 @@
 
                 <td>{{ user.gender }}</td>
 
-                <td>{{ user.skills.join(", ") }}</td>
+                <td>{{ user.skills ? user.skills.join(", ") : "" }}</td>
 
                 <td>
                     <button @click="editUser(user.id)">Edit</button>

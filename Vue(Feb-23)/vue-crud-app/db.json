@@ -7,12 +7,6 @@
       "gender": "Male"
     },
     {
-      "id": "5ef9",
-      "name": "bob",
-      "email": "bob@gmail.com",
-      "gender": "Male"
-    },
-    {
       "id": "ffe7",
       "name": "alice",
       "email": "alice @gmail.com",
@@ -38,6 +32,36 @@
         "C++",
         "Java",
         "Vue JS"
+      ]
+    },
+    {
+      "id": "14a2",
+      "name": "mohan",
+      "email": "mohan@gmail.coom",
+      "gender": "Male",
+      "skills": [
+        "C++",
+        "Java",
+        "Vue JS"
+      ]
+    },
+    {
+      "id": "270a",
+      "name": "billy",
+      "email": "billy@gmail.com",
+      "gender": "Male",
+      "skills": [
+        "C++",
+        "Java"
+      ]
+    },
+    {
+      "id": "cd72",
+      "name": "bob",
+      "email": "bob@gmail.com",
+      "gender": "Male",
+      "skills": [
+        "Java"
       ]
     }
   ]
