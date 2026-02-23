@@ -1,0 +1,22 @@
+{
+  "books": [
+    {
+      "id": "2",
+      "title": "JS The Good Parts",
+      "author": "Douglas Crockford",
+      "available": true
+    },
+    {
+      "id": "79e9",
+      "title": "ramayana",
+      "author": "valmiki",
+      "available": true
+    },
+    {
+      "id": "d57b",
+      "title": "One piece",
+      "author": "oda",
+      "available": true
+    }
+  ]
+}
