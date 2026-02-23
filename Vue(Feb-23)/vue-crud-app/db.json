@@ -17,6 +17,28 @@
       "name": "alice",
       "email": "alice @gmail.com",
       "gender": "Female"
+    },
+    {
+      "id": "f44d",
+      "name": "mohan",
+      "email": "mohan@gmail.com",
+      "gender": "Male",
+      "skills": [
+        "Java",
+        "Vue JS",
+        "C++"
+      ]
+    },
+    {
+      "id": "5c3b",
+      "name": "mohan",
+      "email": "mohan@gmail.com",
+      "gender": "Male",
+      "skills": [
+        "C++",
+        "Java",
+        "Vue JS"
+      ]
     }
   ]
 }

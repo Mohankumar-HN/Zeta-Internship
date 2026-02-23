@@ -4,12 +4,19 @@
   <input v-model="name" placeholder="Name" />
   <input v-model="email" placeholder="Email" />
   
-  <br>
+  <br><br>
   <input type="radio" v-model="gender" value="Male" name="gender"/>
   <label>Male</label>
   <input type="radio" v-model="gender" value="Female" name="gender"/>
   <label>Female</label>
+  <br><br>
+  <h3>Select Skills</h3>
   <br>
+  <input type="checkbox" v-model="skills" value="C++"/><label>C++</label><br>
+  <input type="checkbox" v-model="skills" value="Java"/><label>Java</label><br>
+  <input type="checkbox" v-model="skills" value="Vue JS"/><label>Vue JS</label><br>
+  <input type="checkbox" v-model="skills" value="Spring"/><label>Spring</label><br>
+  <br><br>
   <button @click="saveUser">Save</button>
 </template>
 
@@ -21,7 +28,8 @@ export default {
     return {
       name: '',
       email: '',
-      gender:''
+      gender:'',
+      skills:[]
     }
   },
   methods: {
@@ -29,7 +37,8 @@ export default {
       api.addUser({
         name: this.name,
         email: this.email,
-        gender:this.gender
+        gender:this.gender,
+        skills:this.skills
       }).then(() => {
         this.$router.push('/users')
       })
