@@ -1,13 +1,7 @@
 <template>
     <h2>Users</h2>
 
-    <!-- <ul>
-    <li v-for="user in users" :key="user.id">
-      {{ user.name }} - {{ user.email }} -{{ user.gender }}-{{ user.skills }}
-      <button @click="editUser(user.id)">Edit</button>
-      <button @click="removeUser(user.id)">Delete</button>
-    </li>
-  </ul> -->
+
     <table border="1">
         <thead>
             <tr>

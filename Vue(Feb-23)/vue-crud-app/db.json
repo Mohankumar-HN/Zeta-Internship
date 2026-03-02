@@ -1,18 +1,6 @@
 {
   "users": [
     {
-      "id": "a3fa",
-      "name": "billy",
-      "email": "billy@gmail.com",
-      "gender": "Male"
-    },
-    {
-      "id": "ffe7",
-      "name": "alice",
-      "email": "alice @gmail.com",
-      "gender": "Female"
-    },
-    {
       "id": "f44d",
       "name": "mohan",
       "email": "mohan@gmail.com",
@@ -62,6 +50,24 @@
       "gender": "Male",
       "skills": [
         "Java"
+      ]
+    },
+    {
+      "id": "6fbb",
+      "name": "reevs",
+      "email": "reevs@gmail.com",
+      "gender": "Male",
+      "skills": [
+        "Spring"
+      ]
+    },
+    {
+      "id": "529f",
+      "name": "billy",
+      "email": "billy@gmail.com",
+      "gender": "Male",
+      "skills": [
+        "C++"
       ]
     }
   ]
